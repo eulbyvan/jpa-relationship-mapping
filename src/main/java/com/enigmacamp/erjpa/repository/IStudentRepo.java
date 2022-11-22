@@ -1,4 +1,4 @@
-package com.enigmacamp.erjpa.repository.interfaces;
+package com.enigmacamp.erjpa.repository;
 
 import com.enigmacamp.erjpa.entity.Student;
 

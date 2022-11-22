@@ -1,10 +1,10 @@
 package com.enigmacamp.erjpa.repository.implementations;
 
 import com.enigmacamp.erjpa.entity.UserCredential;
-import com.enigmacamp.erjpa.repository.interfaces.IAuthenticationRepository;
+import com.enigmacamp.erjpa.repository.IAuthRepo;
 import jakarta.persistence.EntityManager;
 
-public class AuthRepo implements IAuthenticationRepository {
+public class AuthRepo implements IAuthRepo {
     private final EntityManager entityManager;
 
     public AuthRepo(EntityManager entityManager) {

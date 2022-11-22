@@ -1,18 +1,20 @@
 package com.enigmacamp.erjpa;
 
 import com.enigmacamp.erjpa.entity.*;
-import com.enigmacamp.erjpa.repository.implementations.IGroupProjectRepo;
-import com.enigmacamp.erjpa.repository.implementations.IMajorRepo;
-import com.enigmacamp.erjpa.repository.implementations.IStudentRepo;
+import com.enigmacamp.erjpa.repository.implementations.GroupProjectRepo;
+import com.enigmacamp.erjpa.repository.implementations.MajorRepo;
+import com.enigmacamp.erjpa.repository.implementations.StudentRepo;
 import com.enigmacamp.erjpa.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
+
+import java.util.Optional;
 
 public class App {
     public static void main(String[] args) throws InterruptedException {
         EntityManager entityManager = JpaUtil.getEntityManager();
-        IStudentRepo IStudentRepo = new IStudentRepo(entityManager);
-        IMajorRepo IMajorRepo = new IMajorRepo(entityManager);
-        IGroupProjectRepo IGroupProjectRepo = new IGroupProjectRepo(entityManager);
+        StudentRepo StudentRepo = new StudentRepo(entityManager);
+        MajorRepo MajorRepo = new MajorRepo(entityManager);
+        GroupProjectRepo GroupProjectRepo = new GroupProjectRepo(entityManager);
 
 //        AuthenticationRepository authenticationRepository = new AuthenticationRepositoryImpl(entityManager);
 //        UserCredential userCredential = new UserCredential();
@@ -140,8 +142,13 @@ public class App {
 //        studentRepo.update(student);
         //endregion
 
-        Student student = IStudentRepo.findOne(5);
-        student.getProjectWithPoints().get(0).setPoint(100);
-        IStudentRepo.update(student);
+        //region update point
+        Student student = StudentRepo.findOne(5);
+        Optional<GroupProjectWithPoint> point = student.getProjectWithPoints().stream().filter(p -> p.getGroupProject().getProjectId() == 6).findAny();
+
+        point.ifPresent(groupProjectWithPoint -> groupProjectWithPoint.setPoint(75));
+
+        StudentRepo.update(student);
+        //endregion
     }
 }

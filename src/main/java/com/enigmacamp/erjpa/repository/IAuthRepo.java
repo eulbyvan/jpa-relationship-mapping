@@ -1,8 +1,8 @@
-package com.enigmacamp.erjpa.repository.interfaces;
+package com.enigmacamp.erjpa.repository;
 
 import com.enigmacamp.erjpa.entity.UserCredential;
 
-public interface IAuthenticationRepository {
+public interface IAuthRepo {
     void create(UserCredential userCredential);
     UserCredential findOne(String id);
 }

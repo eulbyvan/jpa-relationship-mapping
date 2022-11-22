@@ -1,20 +1,21 @@
 package com.enigmacamp.erjpa.repository.implementations;
 
-import com.enigmacamp.erjpa.entity.GroupProject;
+import com.enigmacamp.erjpa.entity.Major;
+import com.enigmacamp.erjpa.repository.IMajorRepo;
 import jakarta.persistence.EntityManager;
 
-public class IGroupProjectRepo implements com.enigmacamp.erjpa.repository.interfaces.IGroupProjectRepo {
+public class MajorRepo implements IMajorRepo {
     private final EntityManager entityManager;
 
-    public IGroupProjectRepo(EntityManager entityManager) {
+    public MajorRepo(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    public void create(GroupProject groupProject) {
+    public void create(Major major) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(groupProject);
+            entityManager.persist(major);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
@@ -24,7 +25,7 @@ public class IGroupProjectRepo implements com.enigmacamp.erjpa.repository.interf
     }
 
     @Override
-    public GroupProject findOne(long id) {
-        return entityManager.find(GroupProject.class, id);
+    public Major findOne(long id) {
+        return entityManager.find(Major.class, id);
     }
 }
