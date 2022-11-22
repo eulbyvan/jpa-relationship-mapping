@@ -1,49 +1,26 @@
 package com.enigmacamp.erjpa.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "user_credential")
+@ToString
 public class UserCredential {
     @Id
     @Column(name = "user_name")
-    private String userName;
+    private @Getter
+    @Setter String userName;
+
     @Column(nullable = false)
-    private String password;
+    private @Getter
+    @Setter String password;
+
     @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "userCredential")
     @JoinColumn(name = "student_id")
+    @Getter
+    @Setter
     Student student;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    @Override
-    public String toString() {
-        return "UserCredential{" +
-                "userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", student=" + student +
-                '}';
-    }
 }

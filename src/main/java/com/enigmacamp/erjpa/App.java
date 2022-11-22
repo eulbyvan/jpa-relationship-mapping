@@ -98,8 +98,8 @@ public class App {
         userCredential.setPassword("goog");
 
         Student student= new Student();
-        student.setLastName("belle");
-        student.setLastName("goog");
+        student.setFirstName("belle");
+        student.setLastName("gogh");
         student.setBirthDate(new Date());
         student.setGender(Gender.F);
         student.setMajor(major);
@@ -123,26 +123,28 @@ public class App {
         groupProject.getProjectWithPoints().add(groupProjectWithPoint);
         studentRepo.create(student);
 
+        //endregion
+
         // update point
-        student = studentRepo.findOne(1);
+//        student = studentRepo.findOne(1);
 
+        //region update point
         // cara ke-1
-        for (GroupProjectWithPoint g : student.getProjectWithPoints()) {
-            if (g.getGroupProject().getProjectId() == 1) {
-                g.setPoint(100);
-                break;
-            }
-        }
-
-        // cara ke-2
-        Optional<GroupProjectWithPoint> projectPoint = student
-                .getProjectWithPoints()
-                .stream()
-                .filter((p) -> p.getGroupProject().getProjectId() == 1)
-                .findAny();
-        projectPoint.get().setPoint(70);
-        studentRepo.update(student);
-
+//        for (GroupProjectWithPoint g : student.getProjectWithPoints()) {
+//            if (g.getGroupProject().getProjectId() == 1) {
+//                g.setPoint(100);
+//                break;
+//            }
+//        }
+//
+//        // cara ke-2
+//        Optional<GroupProjectWithPoint> projectPoint = student
+//                .getProjectWithPoints()
+//                .stream()
+//                .filter((p) -> p.getGroupProject().getProjectId() == 1)
+//                .findAny();
+//        projectPoint.get().setPoint(70);
+//        studentRepo.update(student);
         //endregion
     }
 }
