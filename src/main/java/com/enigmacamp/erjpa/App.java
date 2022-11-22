@@ -143,13 +143,13 @@ public class App {
         //endregion
 
         //region update point
-        Student student = StudentRepo.findOne(5);
+        Student student = studentRepo.findOne(5);
         Optional<GroupProjectWithPoint> point = student.getProjectWithPoints().stream().filter(p -> p.getGroupProject().getProjectId() == 6).findAny();
 
 //        point.ifPresent(groupProjectWithPoint -> groupProjectWithPoint.setPoint(75));
         point.ifPresent(groupProjectWithPoint -> groupProjectWithPoint.setPoint(75));
 
-        StudentRepo.update(student);
+        studentRepo.update(student);
         //endregion
     }
 }
