@@ -1,25 +1,18 @@
 package com.enigmacamp.erjpa;
 
-import com.enigmacamp.erjpa.constants.Gender;
 import com.enigmacamp.erjpa.entity.*;
-import com.enigmacamp.erjpa.repository.implementations.GroupProjectRepoImpl;
-import com.enigmacamp.erjpa.repository.implementations.MajorRepoImpl;
-import com.enigmacamp.erjpa.repository.implementations.StudentRepoImpl;
-import com.enigmacamp.erjpa.repository.interfaces.GroupProjectRepo;
-import com.enigmacamp.erjpa.repository.interfaces.MajorRepo;
-import com.enigmacamp.erjpa.repository.interfaces.StudentRepo;
+import com.enigmacamp.erjpa.repository.implementations.IGroupProjectRepo;
+import com.enigmacamp.erjpa.repository.implementations.IMajorRepo;
+import com.enigmacamp.erjpa.repository.implementations.IStudentRepo;
 import com.enigmacamp.erjpa.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
-
-import java.util.Date;
-import java.util.Optional;
 
 public class App {
     public static void main(String[] args) throws InterruptedException {
         EntityManager entityManager = JpaUtil.getEntityManager();
-        StudentRepo studentRepo = new StudentRepoImpl(entityManager);
-        MajorRepo majorRepo = new MajorRepoImpl(entityManager);
-        GroupProjectRepo groupProjectRepo = new GroupProjectRepoImpl(entityManager);
+        IStudentRepo IStudentRepo = new IStudentRepo(entityManager);
+        IMajorRepo IMajorRepo = new IMajorRepo(entityManager);
+        IGroupProjectRepo IGroupProjectRepo = new IGroupProjectRepo(entityManager);
 
 //        AuthenticationRepository authenticationRepository = new AuthenticationRepositoryImpl(entityManager);
 //        UserCredential userCredential = new UserCredential();
@@ -90,38 +83,38 @@ public class App {
         //region
 
         //region project with point
-        Major major = new Major();
-        major.setMajorName("Chemistry");
-
-        UserCredential userCredential = new UserCredential();
-        userCredential.setUserName("belle");
-        userCredential.setPassword("goog");
-
-        Student student= new Student();
-        student.setFirstName("belle");
-        student.setLastName("gogh");
-        student.setBirthDate(new Date());
-        student.setGender(Gender.F);
-        student.setMajor(major);
-        student.setUserCredential(userCredential);
-        userCredential.setStudent(student);
-
-        GroupProjectWithPoint groupProjectWithPoint = new GroupProjectWithPoint();
-        GroupProjectKey groupProjectKey = new GroupProjectKey();
-
-        GroupProject groupProject = new GroupProject();
-        groupProject.setProjectName("abc");
-        groupProjectRepo.create(groupProject);
-
-        groupProjectKey.setProjectId(groupProject.getProjectId());
-        groupProjectKey.setStudentId(groupProjectKey.getStudentId());
-        groupProjectWithPoint.setId(groupProjectKey);
-        groupProjectWithPoint.setGroupProject(groupProject);
-        groupProjectWithPoint.setStudent(student);
-        groupProjectWithPoint.setPoint(0);
-        student.getProjectWithPoints().add(groupProjectWithPoint);
-        groupProject.getProjectWithPoints().add(groupProjectWithPoint);
-        studentRepo.create(student);
+//        Major major = new Major();
+//        major.setMajorName("Chemistry");
+//
+//        UserCredential userCredential = new UserCredential();
+//        userCredential.setUserName("belle");
+//        userCredential.setPassword("gogh");
+//
+//        Student student= new Student();
+//        student.setFirstName("belle");
+//        student.setLastName("gogh");
+//        student.setBirthDate(new Date());
+//        student.setGender(Gender.F);
+//        student.setMajor(major);
+//        student.setUserCredential(userCredential);
+//        userCredential.setStudent(student);
+//
+//        GroupProjectWithPoint groupProjectWithPoint = new GroupProjectWithPoint();
+//        GroupProjectKey groupProjectKey = new GroupProjectKey();
+//
+//        GroupProject groupProject = new GroupProject();
+//        groupProject.setProjectName("bellegogh");
+//        groupProjectRepo.create(groupProject);
+//
+//        groupProjectKey.setProjectId(groupProject.getProjectId());
+//        groupProjectKey.setStudentId(groupProjectKey.getStudentId());
+//        groupProjectWithPoint.setId(groupProjectKey);
+//        groupProjectWithPoint.setGroupProject(groupProject);
+//        groupProjectWithPoint.setStudent(student);
+//        groupProjectWithPoint.setPoint(0);
+//        student.getProjectWithPoints().add(groupProjectWithPoint);
+//        groupProject.getProjectWithPoints().add(groupProjectWithPoint);
+//        studentRepo.create(student);
 
         //endregion
 
@@ -146,5 +139,9 @@ public class App {
 //        projectPoint.get().setPoint(70);
 //        studentRepo.update(student);
         //endregion
+
+        Student student = IStudentRepo.findOne(5);
+        student.getProjectWithPoints().get(0).setPoint(100);
+        IStudentRepo.update(student);
     }
 }

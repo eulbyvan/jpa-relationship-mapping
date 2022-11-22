@@ -1,13 +1,12 @@
 package com.enigmacamp.erjpa.repository.implementations;
 
 import com.enigmacamp.erjpa.entity.Major;
-import com.enigmacamp.erjpa.repository.interfaces.MajorRepo;
 import jakarta.persistence.EntityManager;
 
-public class MajorRepoImpl implements MajorRepo {
+public class IMajorRepo implements com.enigmacamp.erjpa.repository.interfaces.IMajorRepo {
     private final EntityManager entityManager;
 
-    public MajorRepoImpl(EntityManager entityManager) {
+    public IMajorRepo(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

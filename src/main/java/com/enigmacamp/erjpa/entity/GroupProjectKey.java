@@ -6,9 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @ToString
 @Embeddable
-public class GroupProjectKey {
+public class GroupProjectKey implements Serializable {
+//    private static final long serialVersionUID = 7179815047212857614L;
     @Column(name = "student_id")
     @Getter
     @Setter

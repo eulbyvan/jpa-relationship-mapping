@@ -9,6 +9,10 @@ import lombok.ToString;
 @Table(name = "group_project_point")
 @ToString
 public class GroupProjectWithPoint {
+    public GroupProjectWithPoint() {
+        this.id = new GroupProjectKey();
+    }
+
     @EmbeddedId
     @Getter
     @Setter

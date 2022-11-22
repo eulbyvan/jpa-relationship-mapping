@@ -1,13 +1,12 @@
 package com.enigmacamp.erjpa.repository.implementations;
 
 import com.enigmacamp.erjpa.entity.GroupProject;
-import com.enigmacamp.erjpa.repository.interfaces.GroupProjectRepo;
 import jakarta.persistence.EntityManager;
 
-public class GroupProjectRepoImpl implements GroupProjectRepo {
+public class IGroupProjectRepo implements com.enigmacamp.erjpa.repository.interfaces.IGroupProjectRepo {
     private final EntityManager entityManager;
 
-    public GroupProjectRepoImpl(EntityManager entityManager) {
+    public IGroupProjectRepo(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
