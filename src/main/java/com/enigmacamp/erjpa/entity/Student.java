@@ -3,7 +3,9 @@ package com.enigmacamp.erjpa.entity;
 import com.enigmacamp.erjpa.constants.Gender;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -19,15 +21,21 @@ public class Student {
     @Column(name = "gender", columnDefinition = "varchar(1)")
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @Column(name = "major")
-    private String major;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "major_id")
+    private Major major;
     @Temporal(TemporalType.DATE)
     @Column(name = "birth_date", nullable = false)
     private Date birthDate;
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "credential_id", nullable = false)
+    @JoinColumn(name = "credential_id")
     private UserCredential userCredential;
-
+    @ManyToMany
+    @JoinTable(         name                    = "student_project"
+                        ,joinColumns            = @JoinColumn(name = "student_id")
+                        ,inverseJoinColumns     = @JoinColumn(name = "project_id")
+    )
+    private List<GroupProject> groupProjects = new ArrayList<>();
     public long getStudentId() {
         return studentId;
     }
@@ -60,11 +68,11 @@ public class Student {
         this.gender = gender;
     }
 
-    public String getMajor() {
+    public Major getMajor() {
         return major;
     }
 
-    public void setMajor(String major) {
+    public void setMajor(Major major) {
         this.major = major;
     }
 
@@ -82,6 +90,14 @@ public class Student {
 
     public void setUserCredential(UserCredential userCredential) {
         this.userCredential = userCredential;
+    }
+
+    public List<GroupProject> getGroupProjects() {
+        return groupProjects;
+    }
+
+    public void setGroupProjects(List<GroupProject> groupProjects) {
+        this.groupProjects = groupProjects;
     }
 
     @Override

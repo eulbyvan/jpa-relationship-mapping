@@ -13,7 +13,6 @@ public class StudentRepoImpl implements StudentRepo{
         this.entityManager = entityManager;
     }
 
-
     @Override
     public void create(Student student) {
         try {
