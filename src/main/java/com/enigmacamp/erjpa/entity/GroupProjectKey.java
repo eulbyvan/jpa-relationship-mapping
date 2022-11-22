@@ -16,6 +16,7 @@ public class GroupProjectKey implements Serializable {
     @Getter
     @Setter
     long studentId;
+
     @Column(name = "project_id")
     @Getter
     @Setter

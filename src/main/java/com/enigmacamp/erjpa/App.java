@@ -12,9 +12,9 @@ import java.util.Optional;
 public class App {
     public static void main(String[] args) throws InterruptedException {
         EntityManager entityManager = JpaUtil.getEntityManager();
-        StudentRepo StudentRepo = new StudentRepo(entityManager);
-        MajorRepo MajorRepo = new MajorRepo(entityManager);
-        GroupProjectRepo GroupProjectRepo = new GroupProjectRepo(entityManager);
+        StudentRepo studentRepo = new StudentRepo(entityManager);
+        MajorRepo majorRepo = new MajorRepo(entityManager);
+        GroupProjectRepo groupProjectRepo = new GroupProjectRepo(entityManager);
 
 //        AuthenticationRepository authenticationRepository = new AuthenticationRepositoryImpl(entityManager);
 //        UserCredential userCredential = new UserCredential();
@@ -146,6 +146,7 @@ public class App {
         Student student = StudentRepo.findOne(5);
         Optional<GroupProjectWithPoint> point = student.getProjectWithPoints().stream().filter(p -> p.getGroupProject().getProjectId() == 6).findAny();
 
+//        point.ifPresent(groupProjectWithPoint -> groupProjectWithPoint.setPoint(75));
         point.ifPresent(groupProjectWithPoint -> groupProjectWithPoint.setPoint(75));
 
         StudentRepo.update(student);
