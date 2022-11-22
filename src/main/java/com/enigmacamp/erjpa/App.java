@@ -1,17 +1,18 @@
 package com.enigmacamp.erjpa;
 
 import com.enigmacamp.erjpa.constants.Gender;
-import com.enigmacamp.erjpa.entity.GroupProject;
-import com.enigmacamp.erjpa.entity.Major;
-import com.enigmacamp.erjpa.entity.Student;
-import com.enigmacamp.erjpa.entity.UserCredential;
-import com.enigmacamp.erjpa.repository.*;
+import com.enigmacamp.erjpa.entity.*;
+import com.enigmacamp.erjpa.repository.implementations.GroupProjectRepoImpl;
+import com.enigmacamp.erjpa.repository.implementations.MajorRepoImpl;
+import com.enigmacamp.erjpa.repository.implementations.StudentRepoImpl;
+import com.enigmacamp.erjpa.repository.interfaces.GroupProjectRepo;
+import com.enigmacamp.erjpa.repository.interfaces.MajorRepo;
+import com.enigmacamp.erjpa.repository.interfaces.StudentRepo;
 import com.enigmacamp.erjpa.utils.JpaUtil;
 import jakarta.persistence.EntityManager;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Optional;
 
 public class App {
     public static void main(String[] args) throws InterruptedException {
@@ -76,14 +77,72 @@ public class App {
         //endregion
 
         //region group project
-        GroupProject otherGroupProject = new GroupProject();
-        otherGroupProject.setProjectName("React Native Framework Documentation");
-        groupProjectRepo.create(otherGroupProject);
+//        GroupProject otherGroupProject = new GroupProject();
+//        otherGroupProject.setProjectName("React Native Framework Documentation");
+//        groupProjectRepo.create(otherGroupProject);
+//
+//        Student student = studentRepo.findOne(1);
+//        student.getGroupProjects().add(otherGroupProject);
+//        otherGroupProject.getStudents().add(student);
+//        studentRepo.update(student);
+        //endregion
 
-        Student student = studentRepo.findOne(1);
-        student.getGroupProjects().add(otherGroupProject);
-        otherGroupProject.getStudents().add(student);
+        //region
+
+        //region project with point
+        Major major = new Major();
+        major.setMajorName("Chemistry");
+
+        UserCredential userCredential = new UserCredential();
+        userCredential.setUserName("belle");
+        userCredential.setPassword("goog");
+
+        Student student= new Student();
+        student.setLastName("belle");
+        student.setLastName("goog");
+        student.setBirthDate(new Date());
+        student.setGender(Gender.F);
+        student.setMajor(major);
+        student.setUserCredential(userCredential);
+        userCredential.setStudent(student);
+
+        GroupProjectWithPoint groupProjectWithPoint = new GroupProjectWithPoint();
+        GroupProjectKey groupProjectKey = new GroupProjectKey();
+
+        GroupProject groupProject = new GroupProject();
+        groupProject.setProjectName("abc");
+        groupProjectRepo.create(groupProject);
+
+        groupProjectKey.setProjectId(groupProject.getProjectId());
+        groupProjectKey.setStudentId(groupProjectKey.getStudentId());
+        groupProjectWithPoint.setId(groupProjectKey);
+        groupProjectWithPoint.setGroupProject(groupProject);
+        groupProjectWithPoint.setStudent(student);
+        groupProjectWithPoint.setPoint(0);
+        student.getProjectWithPoints().add(groupProjectWithPoint);
+        groupProject.getProjectWithPoints().add(groupProjectWithPoint);
+        studentRepo.create(student);
+
+        // update point
+        student = studentRepo.findOne(1);
+
+        // cara ke-1
+        for (GroupProjectWithPoint g : student.getProjectWithPoints()) {
+            if (g.getGroupProject().getProjectId() == 1) {
+                g.setPoint(100);
+                break;
+            }
+        }
+
+        // cara ke-2
+        Optional<GroupProjectWithPoint> projectPoint = student
+                .getProjectWithPoints()
+                .stream()
+                .filter((p) -> p.getGroupProject().getProjectId() == 1)
+                .findAny();
+        projectPoint.get().setPoint(70);
         studentRepo.update(student);
+
         //endregion
     }
 }

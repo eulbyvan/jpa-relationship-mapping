@@ -14,8 +14,8 @@ public class GroupProject {
     private long projectId;
     @Column(name = "project_name", nullable = false, length = 50)
     private String projectName;
-    @ManyToMany(mappedBy = "groupProjects")
-    private List<Student> students = new ArrayList<>();
+    @OneToMany(mappedBy = "groupProject")
+    private final List<GroupProjectWithPoint> projectWithPoints = new ArrayList<>();
 
     public long getProjectId() {
         return projectId;
@@ -33,12 +33,8 @@ public class GroupProject {
         this.projectName = projectName;
     }
 
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
+    public List<GroupProjectWithPoint> getProjectWithPoints() {
+        return projectWithPoints;
     }
 
     @Override
@@ -46,7 +42,7 @@ public class GroupProject {
         return "GroupProject{" +
                 "projectId=" + projectId +
                 ", projectName='" + projectName + '\'' +
-                ", students=" + students +
+                ", projectWithPoints=" + projectWithPoints +
                 '}';
     }
 }

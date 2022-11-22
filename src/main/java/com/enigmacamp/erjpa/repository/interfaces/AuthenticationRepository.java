@@ -1,4 +1,4 @@
-package com.enigmacamp.erjpa.repository;
+package com.enigmacamp.erjpa.repository.interfaces;
 
 import com.enigmacamp.erjpa.entity.UserCredential;
 

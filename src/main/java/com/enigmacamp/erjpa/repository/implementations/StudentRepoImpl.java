@@ -1,12 +1,13 @@
-package com.enigmacamp.erjpa.repository;
+package com.enigmacamp.erjpa.repository.implementations;
 
 import com.enigmacamp.erjpa.entity.Student;
+import com.enigmacamp.erjpa.repository.interfaces.StudentRepo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
-public class StudentRepoImpl implements StudentRepo{
+public class StudentRepoImpl implements StudentRepo {
     private EntityManager entityManager;
 
     public StudentRepoImpl(EntityManager entityManager) {

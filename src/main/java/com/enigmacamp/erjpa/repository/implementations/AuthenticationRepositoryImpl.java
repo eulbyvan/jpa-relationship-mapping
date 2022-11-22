@@ -1,9 +1,10 @@
-package com.enigmacamp.erjpa.repository;
+package com.enigmacamp.erjpa.repository.implementations;
 
 import com.enigmacamp.erjpa.entity.UserCredential;
+import com.enigmacamp.erjpa.repository.interfaces.AuthenticationRepository;
 import jakarta.persistence.EntityManager;
 
-public class AuthenticationRepositoryImpl implements AuthenticationRepository{
+public class AuthenticationRepositoryImpl implements AuthenticationRepository {
     private final EntityManager entityManager;
 
     public AuthenticationRepositoryImpl(EntityManager entityManager) {
